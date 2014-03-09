@@ -19,5 +19,11 @@
         <author href="http://yoursite.com" email="lucasrego@gmail.com">
         Lucas
         </author>
-
+		
+		<!-- Splash :: Adroid -->
+		<gap:splash src="img/splash/android/ldpi.png" gap:platform="android" gap:density="ldpi" />
+		<gap:splash src="img/splash/android/mdpi.png" gap:platform="android" gap:density="mdpi" />
+		<gap:splash src="img/splash/android/hdpi.png" gap:platform="android" gap:density="hdpi" />
+		<gap:splash src="img/splash/android/xhdpi.png" gap:platform="android" gap:density="xhdpi" />
+		
     </widget>
