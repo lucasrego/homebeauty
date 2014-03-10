@@ -10,13 +10,33 @@
 <script src="jquery-mobile/jquery-1.11.0.min.js" type="text/javascript"></script>
 <script src="jquery-mobile/jquery.mobile-1.4.2.min.js" type="text/javascript"></script>
 
+<script src="js/modernizr.js" type="text/javascript"></script>
+
 <script>
 
-$(document).on("pagebeforeshow","#splash",function(){
-  alert("HomeBeauty");
+$(document).on("pagebeforeshow","#principal",function(){
+	//Se localstorage não estiver disponível, exibe uma mensagem
+	if (Modernizr.localstorage) {
+		setLocalStorage('homebeauty.email', 'lucasrego@gmail.com');
+	}
+	else {
+		alert('O seu aparelho não suporta o Agendamento de Visitas.');
+	}  
 });
 
+
+function setLocalStorage(key, value) {
+	localStorage.setItem(key, value);
+}
+
+function getLocalStorage(key) {
+	return localStorage.getItem(key);
+}
+
+alert(getLocalStorage('homebeauty.email'));
+
 </script>
+
 </head>
 
 <body> 
