@@ -325,7 +325,6 @@ margin: 0 auto;
 			return localStorage.getItem(key);
 		}
 
-		alert(getLocalStorage('homebeauty.email'));
 	});
 
 </script>
@@ -334,33 +333,69 @@ margin: 0 auto;
 
 <body> 
 
-<div data-role="page" data-theme="b" id="principal" class="my-page">
-	<div data-role="header">
+<div data-role="page" data-theme="b" id="principal" class="my-page" >
+	<div data-role="header" data-position="fixed">
 		<h1>Home Beauty</h1>
 	</div>
-	<div role="main" class="ui-content" class="overthrow">	
+	<div role="main" class="ui-content" >	
 		<ul data-role="listview" >
-			<li><a href="#">
+			<li><a href="#agendarVisita" data-transition="flip">
             	<!--<img src="img/apple.png" class="ui-li-thumb">-->
             	<h2>Agendar Visita</h2>
             </a></li>
         	<li><a href="#servicos" data-transition="flip">
-            	<h2>Serviços</h2>                
+            	<h2>Serviços</h2>
             </a></li>
 		</ul>		
 	</div>
-	<div data-role="footer">
+	<div data-role="footer" data-position="fixed">
 		<h4>Agende sua visita: (71) 8864-4065</h4>
 	</div>
 </div>
 
-<div data-role="page" data-theme="b" id="servicos" class="my-page">
-	<div data-role="header">
-		<h1>Serviços Delivery</h1>
-		<a href="#principal" data-shadow="false" data-iconshadow="false" data-icon="carat-l" data-iconpos="notext" data-rel="back" data-ajax="false">Back</a>
+<div data-role="page" data-theme="b" id="agendarVisita" class="my-page">
+	<div data-role="header" data-position="fixed" data-fullscreen="false">
+		<h1>Agendar Visita</h1>
+		<a href="#principal" data-shadow="false" data-iconshadow="false" data-icon="carat-l" data-iconpos="notext" data-rel="back" data-ajax="false">Voltar</a>
 	</div><!-- /header -->
 
-	<div role="main" class="ui-content" class="overthrow">
+	<div role="main" class="ui-content">
+
+        <form>
+			<fieldset data-role="controlgroup" >
+				<legend>Serviços desejados:</legend>
+				<input type="checkbox" name="escova" id="escova">
+				<label for="escova">Escova</label>
+				<input type="checkbox" name="manicure" id="manicure">
+				<label for="manicure">Manicure</label>
+				<input type="checkbox" name="cauterizacao" id="cauterizacao">
+				<label for="cauterizacao">Cauterização</label>
+			</fieldset>
+		</form>
+
+		<div data-role="popup" id="confirmarAgendamento" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
+			<h3>Atenção</h3>
+			<p>A confirmação dessa visita na data e horário escolhidos será realizada pela equipe Home Beauty.</p>
+			<a href="#" class="ui-btn ui-btn-b ui-btn-inline ui-mini ui-corner-all ui-shadow ui-btn-icon-left ui-icon-check" data-rel="back">Buy: $10.99</a>
+			<a href="#" class="ui-btn ui-btn-inline ui-mini ui-corner-all ui-shadow" data-rel="back">Cancel</a>
+		</div>
+		
+    </div><!-- /content -->
+	
+	<div data-role="footer" data-position="fixed" data-fullscreen="false">
+		<div data-role="controlgroup" data-type="horizontal" data-mini="true">
+			<a href="#confirmarAgendamento" data-rel="popup" data-position-to="window" data-transition="pop" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-check ui-btn-b">Agendar</a>
+		</div>
+	</div>
+</div>
+
+<div data-role="page" data-theme="b" id="servicos" class="my-page">
+	<div data-role="header" data-position="fixed">
+		<h1>Serviços Delivery</h1>
+		<a href="#principal" data-shadow="false" data-iconshadow="false" data-icon="carat-l" data-iconpos="notext" data-rel="back" data-ajax="false">Voltar</a>
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
 
         <ul data-role="listview" data-inset="true" data-icon="false" data-autodividers="false">
         	<li data-role="list-divider">Cabelos</li>
@@ -430,6 +465,13 @@ margin: 0 auto;
         </ul>
 
     </div><!-- /content -->
+	
+	<div data-role="footer" data-position="fixed">
+		<div class="ui-bar">
+			<label for="slider">Barra:</label>
+			<input type="range" name="slider" id="slider" value="50" min="0" max="100" data-highlight="true" data-mini="true">
+		</div>
+	</div>
 </div>
 
 
