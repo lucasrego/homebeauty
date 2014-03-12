@@ -347,10 +347,9 @@ margin: 0 auto;
 			$.mobile.loading( "hide" );
 		};
 		
-		$(document).on("pagebeforeshow","#servicos",function() {
-			//alert('obj LISTASERVICOS: ' + getLocalStorage(LISTASERVICOS));
+		$(document).on("pagecreate", "#servicos", function() {
+			
 			if ($.isEmptyObject(getLocalStorage(LISTASERVICOS))) {
-				alert('obtendo servicos do servidor');
 				$.ajax({
 					url: 'http://subsindi.co/homebeauty/homebeauty.php',
 					//data: $('#frmAgendarVisita').serialize(),
@@ -371,8 +370,9 @@ margin: 0 auto;
 							$.each( laServicos, function( i, val ) {
 								lsServicosHTML += '<li><a href="#"><h2>' + val + '</h2><p>' + val + '</p><p class="ui-li-aside">' + val + '</p></li>';							
 							});
-							$('ul').append(lsServicosHTML);
-							$('#listaServicos').listview('refresh');
+							$("#servicos-listaServicos ul").empty();
+							$('#servicos-listaServicos ul').append(lsServicosHTML);
+							$('#servicos-listaServicos').listview('refresh');
 							setLocalStorage(LISTASERVICOS, lsServicosHTML);
 							
 							//$.mobile.changePage("#principal");                         
@@ -385,9 +385,9 @@ margin: 0 auto;
 					}
 				});
 			} else {
-				alert('exibe do cache local');
-				$('ul').append(getLocalStorage(LISTASERVICOS));
-				$('#listaServicos').listview('refresh');
+				$("#servicos-listaServicos ul").empty();
+				$('#servicos-listaServicos ul').append(getLocalStorage(LISTASERVICOS));
+				$('#servicos-listaServicos').listview('refresh');
 			}
 			
 		});
