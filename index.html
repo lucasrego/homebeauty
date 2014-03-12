@@ -347,7 +347,7 @@ margin: 0 auto;
 			$.mobile.loading( "hide" );
 		};
 		
-		$(document).on("pagecreate", "#servicos", function() {
+		$(document).on("pageshow", "#servicos", function() {
 			
 			if ($.isEmptyObject(getLocalStorage(LISTASERVICOS))) {
 				$.ajax({
@@ -370,8 +370,8 @@ margin: 0 auto;
 							$.each( laServicos, function( i, val ) {
 								lsServicosHTML += '<li><a href="#"><h2>' + val + '</h2><p>' + val + '</p><p class="ui-li-aside">' + val + '</p></li>';							
 							});
-							$("#servicos-listaServicos ul").empty();
-							$('#servicos-listaServicos ul').append(lsServicosHTML);
+							$('#servicos-listaServicos').empty();
+							$('#servicos-listaServicos').append(lsServicosHTML);
 							$('#servicos-listaServicos').listview('refresh');
 							setLocalStorage(LISTASERVICOS, lsServicosHTML);
 							
@@ -385,8 +385,8 @@ margin: 0 auto;
 					}
 				});
 			} else {
-				$("#servicos-listaServicos ul").empty();
-				$('#servicos-listaServicos ul').append(getLocalStorage(LISTASERVICOS));
+				$("#servicos-listaServicos").empty();
+				$('#servicos-listaServicos').append(getLocalStorage(LISTASERVICOS));
 				$('#servicos-listaServicos').listview('refresh');
 			}
 			
@@ -487,7 +487,7 @@ margin: 0 auto;
 
 	<div role="main" class="ui-content">
 
-        <ul data-role="listview" data-inset="true" data-icon="false" data-autodividers="true" id="listaServicos">
+        <ul data-role="listview" data-inset="true" data-icon="false" data-autodividers="true" id="servicos-listaServicos">
         	<!--
 			<li data-role="list-divider">Cabelos</li>
         	<li><a href="#">
