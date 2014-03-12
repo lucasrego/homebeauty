@@ -316,7 +316,6 @@ margin: 0 auto;
 			}  
 		});
 
-
 		function setLocalStorage(key, value) {
 			localStorage.setItem(key, value);
 		}
@@ -324,7 +323,56 @@ margin: 0 auto;
 		function getLocalStorage(key) {
 			return localStorage.getItem(key);
 		}
+		
+		function showPageLoadingMsg() {
+			var $this = $( this ),
+				theme = $this.jqmData( "theme" ) || $.mobile.loader.prototype.options.theme,
+				msgText = $this.jqmData( "msgtext" ) || $.mobile.loader.prototype.options.text,
+				textVisible = $this.jqmData( "textvisible" ) || $.mobile.loader.prototype.options.textVisible,
+				textonly = !!$this.jqmData( "textonly" );
+				html = $this.jqmData( "html" ) || "";
+			$.mobile.loading( "show", {
+					text: msgText,
+					textVisible: textVisible,
+					theme: theme,
+					textonly: textonly,
+					html: html
+			});
+		}
+		
+		function hidePageLoadingMsg() {
+			$.mobile.loading( "hide" );
+		};
 
+		$(document).on('click', '#btnAgendarVisita', function() { // catch the form's submit event
+            
+			$.ajax({
+                url: 'http://subsindi.co/homebeauty.php',
+                data: $('#frmAgendarVisita').serialize(),
+                type: 'POST',
+                beforeSend: function () {
+                    showPageLoadingMsg();
+                },
+                complete: function () {
+                    hidePageLoadingMsg();
+                },
+                success: function (result) {
+                    if(result.status) {
+						alert('Sucesso!'); 
+						$.mobile.changePage("#principal");                         
+					} else {
+						alert('Logon unsuccessful!'); 
+					}
+                },
+                error: function (request, error) {
+                    // This callback function will trigger on unsuccessful action                
+                    alert("An error occurred: " + status + "nError: " + error);
+                }
+            });
+			        
+            event.preventDefault();
+        });
+		
 	});
 
 </script>
@@ -360,7 +408,8 @@ margin: 0 auto;
 	</div><!-- /header -->
 
 	<div role="main" class="ui-content">
-
+		
+		<!--
         <form>
 			<fieldset data-role="controlgroup" >
 				<legend>Serviços desejados:</legend>
@@ -372,7 +421,24 @@ margin: 0 auto;
 				<label for="cauterizacao">Cauterização</label>
 			</fieldset>
 		</form>
-
+		-->
+		<form id="frmAgendarVisita" class="ui-corner-all" data-ajax="false">
+		
+			<div class="ui-field-contain" data-theme="b">
+				<label for="servicosVisita">1. Escolha os serviços:</label>
+				<select name="servicosVisita" id="servicosVisita" data-native-menu="false" multiple="multiple" data-iconpos="left">
+					<option>Selecionar</option>
+					<option value="AL">Escova</option>
+					<option value="AK">Cauterização</option>
+					<option value="AZ">Manicure</option>
+					<option value="AR">Pedicure</option>
+					<option value="CA" selected="selected">Escova Inteligente</option>
+					<option value="CO">Colorado</option>
+				</select>
+			</div>
+			<input type="button" data-theme="b" name="btnAgendarVisita" id="btnAgendarVisita" value="Submit">
+		</form>
+		
 		<div data-role="popup" id="confirmarAgendamento" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
 			<h3>Atenção</h3>
 			<p>A confirmação dessa visita na data e horário escolhidos será realizada pela equipe Home Beauty.</p>
