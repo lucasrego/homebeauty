@@ -305,8 +305,11 @@ margin: 0 auto;
 <script>
 
 	$(document).ready(function(){
-
-		$(document).on("pagebeforeshow","#principal",function(){
+		
+		LISTASERVICOS = "homebeauty.servicos";
+		EMAIL = "homebeauty.email";
+		
+		$(document).on("pagebeforeshow","#principal",function() {
 			//Se localstorage não estiver disponível, exibe uma mensagem
 			if (Modernizr.localstorage) {
 				setLocalStorage('homebeauty.email', 'lucasrego@gmail.com');
@@ -343,33 +346,54 @@ margin: 0 auto;
 		function hidePageLoadingMsg() {
 			$.mobile.loading( "hide" );
 		};
-
-		$(document).on('click', '#btnAgendarVisita', function() { // catch the form's submit event
-            
-			$.ajax({
-                url: 'http://subsindi.co/homebeauty/homebeauty.php',
-                data: $('#frmAgendarVisita').serialize(),
-                type: 'POST',
-                beforeSend: function () {
-                    showPageLoadingMsg();
-                },
-                complete: function () {
-                    hidePageLoadingMsg();
-                },
-                success: function (result) {
-                    if(result.status) {
-						alert('Sucesso!'); 
-						$.mobile.changePage("#principal");                         
-					} else {
-						alert('Logon unsuccessful!'); 
+		
+		$(document).on("pagebeforeshow","#servicos",function() {
+			//alert('obj LISTASERVICOS: ' + getLocalStorage(LISTASERVICOS));
+			if ($.isEmptyObject(getLocalStorage(LISTASERVICOS))) {
+				alert('obtendo servicos do servidor');
+				$.ajax({
+					url: 'http://subsindi.co/homebeauty/homebeauty.php',
+					//data: $('#frmAgendarVisita').serialize(),
+					type: 'POST',
+					beforeSend: function () {
+						showPageLoadingMsg();
+					},
+					complete: function () {
+						hidePageLoadingMsg();
+					},
+					success: function (retorno) {
+						var jsonRetorno = jQuery.parseJSON(retorno);
+						if(jsonRetorno.resultado == "1") {
+							
+							laServicos = jsonRetorno.servicos.split("|");						
+							
+							lsServicosHTML = "";
+							$.each( laServicos, function( i, val ) {
+								lsServicosHTML += '<li><a href="#"><h2>' + val + '</h2><p>' + val + '</p><p class="ui-li-aside">' + val + '</p></li>';							
+							});
+							$('ul').append(lsServicosHTML);
+							$('#listaServicos').listview('refresh');
+							setLocalStorage(LISTASERVICOS, lsServicosHTML);
+							
+							//$.mobile.changePage("#principal");                         
+						} else {
+							alert('Desculpe! Não possível obter dados do sistema no momento.'); 
+						}
+					},
+					error: function (request, error) {
+						alert("Desculpe! Não possível obter dados do sistema no momento (" + error + ")");
 					}
-                },
-                error: function (request, error) {
-                    // This callback function will trigger on unsuccessful action                
-                    alert("An error occurred: " + status + "nError: " + error);
-                }
-            });
-			        
+				});
+			} else {
+				alert('exibe do cache local');
+				$('ul').append(getLocalStorage(LISTASERVICOS));
+				$('#listaServicos').listview('refresh');
+			}
+			
+		});
+		
+		$(document).on('click', '#btnAgendarVisita', function() { // catch the form's submit event
+            //Validar dados e Ajax para agendar visita;			        
             event.preventDefault();
         });
 		
@@ -463,10 +487,11 @@ margin: 0 auto;
 
 	<div role="main" class="ui-content">
 
-        <ul data-role="listview" data-inset="true" data-icon="false" data-autodividers="false">
-        	<li data-role="list-divider">Cabelos</li>
+        <ul data-role="listview" data-inset="true" data-icon="false" data-autodividers="true" id="listaServicos">
+        	<!--
+			<li data-role="list-divider">Cabelos</li>
         	<li><a href="#">
-            	<!--<img src="img/apple.png" class="ui-li-thumb">-->
+            	<img src="img/apple.png" class="ui-li-thumb">
             	<h2>Escova</h2>
                 <p>Loreal, oadsoaish oasdh as</p>
                 <p class="ui-li-aside">R$ 49,90</p>
@@ -475,47 +500,7 @@ margin: 0 auto;
             	<h2>Escova + Cachos (Babyliss)</h2>
                 <p>Escova modeladora Loreal com Babyliss</p>
                 <p class="ui-li-aside">R$ 70</p>
-            </a></li>
-			<li><a href="#">
-            	<h2>2 Escova + Cachos (Babyliss)</h2>
-                <p>Escova modeladora Loreal com Babyliss</p>
-                <p class="ui-li-aside">R$ 70</p>
-            </a></li>
-			<li><a href="#">
-            	<h2>3 Escova + Cachos (Babyliss)</h2>
-                <p>Escova modeladora Loreal com Babyliss</p>
-                <p class="ui-li-aside">R$ 70</p>
-            </a></li>
-			<li><a href="#">
-            	<h2>4 Escova + Cachos (Babyliss)</h2>
-                <p>Escova modeladora Loreal com Babyliss</p>
-                <p class="ui-li-aside">R$ 70</p>
-            </a></li>
-			<li><a href="#">
-            	<h2>5 Escova + Cachos (Babyliss)</h2>
-                <p>Escova modeladora Loreal com Babyliss</p>
-                <p class="ui-li-aside">R$ 70</p>
-            </a></li>
-			<li><a href="#">
-            	<h2>6 Escova + Cachos (Babyliss)</h2>
-                <p>Escova modeladora Loreal com Babyliss</p>
-                <p class="ui-li-aside">R$ 70</p>
-            </a></li>
-			<li><a href="#">
-            	<h2>7 Escova + Cachos (Babyliss)</h2>
-                <p>Escova modeladora Loreal com Babyliss</p>
-                <p class="ui-li-aside">R$ 70</p>
-            </a></li>
-			<li><a href="#">
-            	<h2>8 Escova + Cachos (Babyliss)</h2>
-                <p>Escova modeladora Loreal com Babyliss</p>
-                <p class="ui-li-aside">R$ 70</p>
-            </a></li>
-			<li><a href="#">
-            	<h2>9 Escova + Cachos (Babyliss)</h2>
-                <p>Escova modeladora Loreal com Babyliss</p>
-                <p class="ui-li-aside">R$ 70</p>
-            </a></li>			
+            </a></li>								
             <li data-role="list-divider">Mãos e Pés</li>
             <li><a href="#">
             	<h2>Cauterização</h2>
@@ -528,6 +513,7 @@ margin: 0 auto;
                 <p>Maquiagem Dior</p>
                 <p class="ui-li-aside">R$ 145</p>
             </a></li>
+			-->
         </ul>
 
     </div><!-- /content -->

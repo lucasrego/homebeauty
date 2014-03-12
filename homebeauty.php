@@ -11,9 +11,12 @@
 //$password = $formData->{'password'}; 
 
 header('Cache-Control: no-cache, must-revalidate');
-	
-$output = array('status' => true, 'massage' => 'Welcome!');
-echo json_encode($output);
+
+echo '{ "resultado": "1", "servicos": "Escova|Cauterização" }';	
+
+//$output = array('status' => true, 'massage' => 'Welcome!');
+//echo json_encode($output);
+
 
 
 ?>
