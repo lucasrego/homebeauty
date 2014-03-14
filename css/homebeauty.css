@@ -106,9 +106,10 @@ ul.copy-divider {
 }
 /* logotipo and overlay */
 #logotipo {
-	background: #8c1515;
+	background: #000;
 	padding: 20px 0;
-	border-bottom: 4px solid #d2bd86;
+	/* border-bottom: 5px solid #d2bd86; */
+	border-bottom: 5px solid #af0055;	
 }
 #logotipo img {
 	margin: 0 auto;
@@ -125,7 +126,7 @@ h2#banner {
 	text-indent:-9999px;}
 
 #home div.ui-content {
-	margin-top: -365px;
+	margin-top: -390px;
 }
 
 /* Remove reduntant extra top padding - don't put h2's in front of ul.listview */
