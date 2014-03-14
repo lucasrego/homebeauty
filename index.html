@@ -84,7 +84,8 @@
 							
 							lsServicosHTML = "";
 							$.each( laServicos, function( i, val ) {
-								lsServicosHTML += '<li><a href="#"><h2>' + val + '</h2><p>' + val + '</p><p class="ui-li-aside">' + val + '</p></li>';							
+								//lsServicosHTML += '<li><a href="#"><h2>' + val + '</h2><p>' + val + '</p><p class="ui-li-aside">' + val + '</p></li>';
+								lsServicosHTML += '<li><a href="#"><h2>' + val.split("#")[0] + '</h2><p class="ui-li-aside">R$ ' + val.split("#")[1] + '</p></li>';								
 							});
 							$('#servicos-listaServicos').empty();
 							$('#servicos-listaServicos').append(lsServicosHTML);
@@ -154,34 +155,55 @@
 	</div>
 </div>
 
-<div data-role="page" data-theme="a" id="principal" class="my-page" >
-	<div data-role="header" data-position="fixed">
-		<h1>Home Beauty</h1>
+<div data-role="page" id="servicos" data-url="servicos">
+	<!--
+	<div data-role="header">
+		<div id="logotipo"><img src="img/logo.png" alt="Home Beauty" width="200" height="42"></div>
+		<h1>Serviços Delivery</h1>
 	</div>
-	<div role="main" class="ui-content">	
-		<ul data-role="listview" data-inset="true" data-autodividers="false">
-			<li data-icon="clock" data-iconpos="top"><a href="#agendarVisita" data-transition="none">
-            	<h2>Agendar Visita</h2>
-            </a></li>
-        	<li data-icon="star"><a href="#servicos" data-transition="none">
-            	<h2>Serviços</h2>
-            </a></li>
-			<li data-icon="heart"><a href="#" data-transition="none">
-            	<h2>Minhas Visitas</h2>
-            </a></li>
-			<li data-icon="user"><a href="#" data-transition="none">
-            	<h2>Meus Dados</h2>
-            </a></li>
+	-->
+	<div data-role="header" class="ui-header ui-bar-c" role="banner">
+		<div id="logotipo"><img src="img/logo.png" alt="Home Beauty" width="200" height="42"></div>
+		<div class="ui-header">
+			<!--<a href="#home" data-rel="back" class="back ui-btn-left ui-btn ui-shadow ui-btn-corner-all ui-btn-up-b" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-icon="star"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Back</span></span></a>-->
+			<h1 class="ui-title" role="heading" aria-level="1">Serviços Delivery</h1>
+		</div>
+    </div>
+	<div data-role="content" class="ui-content" role="main">		
+		<ul data-role="listview" data-inset="true" data-icon="false" data-autodividers="true" id="servicos-listaServicos">
 		</ul>
 	</div>
-	<div data-role="footer" data-position="fixed" data-fullscreen="false">
-		<div data-role="controlgroup" data-type="horizontal" data-mini="true">
-			<a href="#confirmarAgendamento" data-rel="popup" data-position-to="window" data-transition="pop" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-check ui-btn-b">Agendar</a>
+</div>
+
+<div data-role="page" id="agendarVisita" data-url="agendarVisita">
+	<div data-role="header" class="ui-header ui-bar-c" role="banner">
+		<div id="logotipo"><img src="img/logo.png" alt="Home Beauty" width="200" height="42"></div>
+		<div class="ui-header">
+			<!--<a href="#home" data-rel="back" class="back ui-btn-left ui-btn ui-shadow ui-btn-corner-all ui-btn-up-b" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-icon="star"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Back</span></span></a>-->
+			<h1 class="ui-title" role="heading" aria-level="1">Agendar Visita</h1>
+		</div>
+    </div>
+	<div data-role="content" class="ui-content" role="main">		
+		<form>
+			<fieldset data-role="controlgroup" >
+				<!--<legend>Serviços desejados:</legend>-->
+				<input type="checkbox" name="escova" id="escova">
+				<label for="escova"><h2>Escova</h2></label>
+				<input type="checkbox" name="manicure" id="manicure">
+				<label for="manicure"><h2>Manicure</h2></label>
+				<input type="checkbox" name="cauterizacao" id="cauterizacao">
+				<label for="cauterizacao"><h2>Cauterização</h2></label>
+			</fieldset>
+		</form>
+	</div>
+	<div data-role="footer" data-position="fixed">
+		<div class="ui-bar">
+			<input type="range" name="slider" id="slider" value="2" min="1" max="3" data-highlight="true" data-mini="false">
 		</div>
 	</div>
 </div>
 
-<div data-role="page" data-theme="a" id="agendarVisita" class="my-page">
+<div data-role="page" data-theme="a" id="agendarVisita11" class="my-page">
 	<div data-role="header" data-position="fixed" data-fullscreen="false">
 		<h1>Agendar Visita</h1>
 		<a href="#principal" data-shadow="false" data-iconshadow="false" data-icon="carat-l" data-iconpos="notext" data-rel="back" data-ajax="false">Voltar</a>
@@ -235,7 +257,9 @@
 	</div>
 </div>
 
-<div data-role="page" data-theme="a" id="servicos" class="my-page">
+
+
+<div data-role="page" data-theme="a" id="servicos2" class="my-page">
 	<div data-role="header" data-position="fixed">
 		<h1>Serviços Delivery</h1>
 		<a href="#principal" data-shadow="false" data-iconshadow="false" data-icon="carat-l" data-iconpos="notext" data-rel="back" data-ajax="false">Voltar</a>
